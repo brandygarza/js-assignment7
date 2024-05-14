@@ -20,11 +20,27 @@ app.get('/', (_, response) => {
 
 
 // GET /api/todos
+app.get('/api/todos', (request, response) => {
+	const { id, item, complete  } = request.params
+	response.json({ todos })
+})
 
 // POST /api/todos
+app.post('/api/todos',(request, response)=> {
+const { item } = request.body
+const id = todos.length + 1
+const complete = false
+todos.push({ id, item, complete })
+response.json({ id })
+})
 
 // PUT /api/todos/:id
-
+app.put('/api/todos/:id', (request, response)=> {
+	const { id } = request.params
+	const task = todos.find(todo => todo.id.toString() === id)
+	task.complete = !task.complete // toggle the complete property
+	response.json({ task })	
+})
 
 
 const message = `Server running: http://localhost:${port}`
